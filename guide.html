@@ -1,0 +1,66 @@
+<html>
+<head>
+<style>
+table, th, td {
+border: 1px solid black;
+border-collapse:collapse;
+}
+th, td {
+padding: 5px;
+}
+</style>
+</head>
+<body>
+<script>
+	if (window.XMLHttpRequest) {
+	xmlhttp = new XMLHttpRequest();}
+
+	else {
+	xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");}
+
+	xmlhttp.open("GET", "IndZad2Var2.xml", false);
+	xmlhttp.send();
+	xmlDoc = xmlhttp.responseXML;
+
+
+	document.write("<table><tr><th>Device</th><th>Master</th><th>Breakdown</th></tr>");
+
+	var DEVICE = xmlDoc.getElementsByTagName("DEVICE");
+	for (i = 0; i < DEVICE.length; i++) {
+	document.write("<tr><td>");
+	document.write(DEVICE[i].getElementsByTagName("NameDevice")[0].childNodes[0].nodeValue);
+	document.write("</td><td>");
+
+	//начинаем движение по подчиненным элементам - Мастер текущего прибора
+
+	var MASTER = DEVICE[i].getElementsByTagName("MASTER");
+	document.write("<table><tr><th>SurnameMaster</th><th>Qualification</th></tr>");
+	for (j = 0; j < MASTER.length; j++) {
+	document.write("<tr><td>");
+	document.write(MASTER[j].getElementsByTagName("SurnameMaster")[0].childNodes[0].nodeValue);
+	document.write("</td><td>");
+	document.write(MASTER[j].getElementsByTagName("Qualification")[0].childNodes[0].nodeValue);
+	document.write("</td></tr>");
+	}
+	document.write("</table>"); //закрыли таблицу мастера текущего прибора
+	
+	document.write("<td>");
+	
+	var REPAIR = DEVICE[i].getElementsByTagName("REPAIR");
+	document.write("<table><tr><th>TypeBreakdown</th><th>Cost</th></tr>");
+	for (k = 0; k < REPAIR.length; k++) {
+	document.write("<tr><td>");
+	document.write(REPAIR[k].getElementsByTagName("TypeBreakdown")[0].childNodes[0].nodeValue);
+	document.write("</td><td>");
+	document.write(REPAIR[k].getElementsByTagName("Cost")[0].childNodes[0].nodeValue);
+	document.write("</td></tr>");
+	}
+	document.write("</table>"); //закрыли таблицу поломки текущего прибора	
+
+	}
+	document.write("</table>"); //закрыли таблицу приборов
+
+
+</script>
+</body>
+</html>
