@@ -1,0 +1,65 @@
+<html>
+<head>
+<style>
+
+table, th, td {
+   border: 1px solid black;
+   border-collapse:collapse;}
+
+th, td {
+   padding: 5px;}
+
+</style>
+
+</head>
+
+<body>
+
+<script>
+	if (window.XMLHttpRequest) {
+	   xmlhttp = new XMLHttpRequest();}
+
+	else {
+	   xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");}
+
+	xmlhttp.open("GET", "ind_zad_var1_1.xml", false);
+	xmlhttp.send();
+	xmlDoc = xmlhttp.responseXML;
+
+	var Worker = xmlDoc.getElementsByTagName("WORKER");
+
+	for (i = 0; i < Worker.length; i++) {
+	document.write("<tr><td>");
+
+	document.write(Worker[i].getElementsByTagName("IDWORKER")[0].childNodes[0].nodeValue);
+	   document.write("</td><td>");
+
+	document.write(Worker[i].getElementsByTagName("SURNAME")[0].childNodes[0].nodeValue);
+	   document.write("</td></tr>");
+
+
+	var information = Worker[i].getElementsByTagName("information");
+
+	document.write("<table><tr><th>Имя</th><th>Отчество</th><th>Должность</th><th>\Дата принятия на работу</th></tr>");
+
+	for (j = 0; j < information.length; j++){
+	document.write("<tr><td>");
+
+	document.write(information[j].getElementsByTagName("NAME")[0].childNodes[0].nodeValue);
+	   document.write("</td><td>");
+
+	document.write(information[j].getElementsByTagName("NAME1")[0].childNodes[0].nodeValue);
+	   document.write("</td><td>");
+
+	document.write(information[j].getElementsByTagName("PLACE")[0].childNodes[0].nodeValue);
+	   document.write("</td></tr>");
+
+	document.write(information[j].getElementsByTagName("DATA")[0].childNodes[0].nodeValue);
+	   document.write("</td></tr>");
+}
+document.write("</table>"); 
+}
+</script>
+
+</body>
+</html>
